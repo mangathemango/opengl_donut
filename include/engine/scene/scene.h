@@ -6,6 +6,4 @@
 struct Scene {
     std::vector<GameObj*> objs;
     Camera* mainCamera;
-
-    void render();
 };

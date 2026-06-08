@@ -1,11 +1,11 @@
 #include <gl.h>
+#include <glfw3.h>
 #include <app.h>
 #include <random.h>
 #include <input.h>
-#include <meshrenderer.h>
-#include <cubemesh.h>
+#include <mesh_renderer.h>
+#include <cube_mesh.h>
 #include <component.h>
-
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -13,7 +13,8 @@
 
 ?   Updated by Mango on 08/03/2025
 */
-int App_Start() {
+int App_Start()
+{
     RandomInit();
 
     if (!glfwInit())
@@ -58,18 +59,17 @@ int App_Start() {
         app.config.screen_height);
 
     glEnable(GL_DEPTH_TEST);
-    GameObj* cameraObj = new GameObj();
-    Camera* camera = cameraObj->addComponent<Camera>();
+    GameObj *cameraObj = new GameObj();
+    Camera *camera = cameraObj->addComponent<Camera>();
     camera->fov = 90;
     camera->tf = cameraObj->getComponent<Transform>();
     camera->tf->rotateDegrees(Vec3::up(), 30);
     app.state.scene.mainCamera = camera;
 
-
-    GameObj* cube = new GameObj();
-    MeshRenderer* mr = cube->addComponent<MeshRenderer>();
+    GameObj *cube = new GameObj();
+    MeshRenderer *mr = cube->addComponent<MeshRenderer>();
     mr->mesh = new CubeMesh(2.0f);
-    cube->getComponent<Transform>()->position = Vec3(0,-3,20);
-    
+    cube->getComponent<Transform>()->position = Vec3(0, -3, 20);
+
     return 0;
 }
