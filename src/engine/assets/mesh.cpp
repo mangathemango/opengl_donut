@@ -1,8 +1,9 @@
-#include <cube_mesh.h>
+#include <mesh.h>
 
-CubeMesh::CubeMesh(float length)
+Mesh* Mesh::Cube(float length)
 {
-    this->vertices = {
+    Mesh* m = new Mesh();
+    m->vertices = {
         Vec3(length, length, length),
         Vec3(-length, length, length),
         Vec3(-length, -length, length),
@@ -13,7 +14,7 @@ CubeMesh::CubeMesh(float length)
         Vec3(-length, -length, -length),
         Vec3(length, -length, -length),
     };
-    this->indices = {
+    m->indices = {
         0, 1, 2,
         2, 3, 0,
         4, 5, 7,
@@ -26,7 +27,7 @@ CubeMesh::CubeMesh(float length)
         6, 2, 3,
         0, 1, 5,
         5, 4, 0};
-    this->normals = {
+    m->normals = {
         Vec3(length, length, length),
         Vec3(-length, length, length),
         Vec3(-length, -length, length),
@@ -36,4 +37,5 @@ CubeMesh::CubeMesh(float length)
         Vec3(-length, length, -length),
         Vec3(length, -length, -length),
         Vec3(-length, -length, -length)};
+    return m;
 }

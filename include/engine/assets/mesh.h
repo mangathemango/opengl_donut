@@ -10,5 +10,6 @@ struct Mesh
     std::vector<uint32_t> indices;
 
     Mesh() = default;
+    static Mesh* Cube(float size);
 };
 

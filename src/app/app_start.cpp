@@ -4,7 +4,7 @@
 #include <random.h>
 #include <input.h>
 #include <mesh_renderer.h>
-#include <cube_mesh.h>
+#include <mesh.h>
 #include <component.h>
 
 /*
@@ -68,7 +68,7 @@ int App_Start()
 
     GameObj *cube = new GameObj();
     MeshRenderer *mr = cube->addComponent<MeshRenderer>();
-    mr->mesh = new CubeMesh(2.0f);
+    mr->mesh = Mesh::Cube(2.0f);
     cube->getComponent<Transform>()->position = Vec3(0, -3, 20);
 
     return 0;
