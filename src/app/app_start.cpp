@@ -1,9 +1,11 @@
+#include <gl.h>
 #include <app.h>
 #include <random.h>
 #include <input.h>
 #include <meshrenderer.h>
 #include <cubemesh.h>
 #include <component.h>
+
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -14,6 +16,48 @@
 int App_Start() {
     RandomInit();
 
+    if (!glfwInit())
+    {
+        std::cerr << "Failed to initialize GLFW\n";
+        return 1;
+    }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE,
+                   GLFW_OPENGL_CORE_PROFILE);
+
+    app.resources.window = glfwCreateWindow(
+        app.config.window_width,
+        app.config.window_height,
+        app.config.window_title,
+        nullptr,
+        nullptr);
+
+    if (!app.resources.window)
+    {
+        std::cerr << "Failed to create window\n";
+        glfwTerminate();
+        return 1;
+    }
+
+    glfwMakeContextCurrent(app.resources.window);
+
+    if (!gladLoadGL(glfwGetProcAddress))
+    {
+        std::cerr << "Failed to initialize GLAD\n";
+        return 1;
+    }
+
+    glfwSwapInterval(1); // vsync
+
+    glViewport(
+        0,
+        0,
+        app.config.screen_width,
+        app.config.screen_height);
+
+    glEnable(GL_DEPTH_TEST);
     GameObj* cameraObj = new GameObj();
     Camera* camera = cameraObj->addComponent<Camera>();
     camera->fov = 90;

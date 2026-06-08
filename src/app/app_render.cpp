@@ -9,7 +9,7 @@
  * @return int Status code (0 for success)
  */
 int App_RenderMain() {
-    app.state.scene.render();
+    // app.state.scene.render();
     return 0;
 }
 
@@ -22,5 +22,12 @@ int App_RenderMain() {
  * @return int Status code (0 for success)
  */
 int App_Render() {
+
+    glClear(GL_COLOR_BUFFER_BIT |
+            GL_DEPTH_BUFFER_BIT);
+
+    App_RenderMain();
+
+    glfwSwapBuffers(app.resources.window);
     return 0;
 }

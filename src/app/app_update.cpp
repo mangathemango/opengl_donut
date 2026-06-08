@@ -10,7 +10,8 @@
  * @return int Status code (0 for success)
  */
 int App_Update()
-{
+{   
+    app.state.running = !glfwWindowShouldClose(app.resources.window);
     GameObj *cube = app.state.scene.objs[1];
     Transform *cameraTf = app.state.scene.objs[0]->getComponent<Transform>();
     float sensitivity = 0.5;
