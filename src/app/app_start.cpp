@@ -13,7 +13,6 @@
 */
 int App_Start() {
     RandomInit();
-    Input_Init();
 
     GameObj* cameraObj = new GameObj();
     Camera* camera = cameraObj->addComponent<Camera>();

@@ -34,7 +34,5 @@ target_link_libraries(opengl-donut PRIVATE
     glfw3 
     opengl32 
     gdi32 
-)
-target_link_libraries(opengl-donut PRIVATE
     OpenGL::GL
 )
