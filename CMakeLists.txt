@@ -18,9 +18,13 @@ add_executable(opengl-donut
     ${SOURCES}
 )
 
-target_include_directories(opengl-donut PRIVATE
-    "${CMAKE_SOURCE_DIR}/include"
-)
+include_directories(${CMAKE_SOURCE_DIR}/include)
+file(GLOB_RECURSE INCLUDE_DIRS LIST_DIRECTORIES true "${CMAKE_SOURCE_DIR}/include/*")
+foreach(DIR ${INCLUDE_DIRS})
+    if(IS_DIRECTORY ${DIR})
+    include_directories(${DIR})
+    endif()
+endforeach()
 
 target_link_directories(opengl-donut PRIVATE 
     lib/lib-mingw-w64

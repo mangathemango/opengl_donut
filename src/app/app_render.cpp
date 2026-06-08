@@ -1,0 +1,26 @@
+#include <app.h>
+#include <input.h>
+
+/**
+ * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
+ * 
+ * This function is called inside App_Render().
+ * 
+ * @return int Status code (0 for success)
+ */
+int App_RenderMain() {
+    app.state.scene.render();
+    return 0;
+}
+
+/**
+ * @brief [Render] Renders the current frame of the game.
+ * 
+ * Includes the main rendering function and the final rendering to the window.
+ * This function is called every frame after all the updating is complete.
+ * 
+ * @return int Status code (0 for success)
+ */
+int App_Render() {
+    return 0;
+}
