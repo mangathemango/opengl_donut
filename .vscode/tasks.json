@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+       {
+            "label": "cmake build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S", ".",
+                "-B", "build",
+                "-G", "MinGW Makefiles"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "cmake compile",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "build"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/opengl-donut.exe",
+            "group": {
+              "kind": "test"
+            },
+            "presentation": {
+              "echo": true,
+              "reveal": "always",
+              "focus": true,
+              "panel": "shared"
+            }
+        },
+        {
+            "label": "cmake build and run",
+            "dependsOrder": "sequence",
+            "dependsOn": ["cmake build", "cmake compile", "run"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

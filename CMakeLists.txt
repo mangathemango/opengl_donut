@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(MyProject LANGUAGES C CXX)
+project(opengl-donut LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -14,23 +14,23 @@ file(GLOB_RECURSE SOURCES
 
 message(STATUS "Sources: ${SOURCES}")
 
-add_executable(MyProject 
+add_executable(opengl-donut 
     ${SOURCES}
 )
 
-target_include_directories(MyProject PRIVATE
+target_include_directories(opengl-donut PRIVATE
     "${CMAKE_SOURCE_DIR}/include"
 )
 
-target_link_directories(MyProject PRIVATE 
+target_link_directories(opengl-donut PRIVATE 
     lib/lib-mingw-w64
 ) 
 
-target_link_libraries(MyProject PRIVATE 
+target_link_libraries(opengl-donut PRIVATE 
     glfw3 
     opengl32 
     gdi32 
 )
-target_link_libraries(MyProject PRIVATE
+target_link_libraries(opengl-donut PRIVATE
     OpenGL::GL
 )
