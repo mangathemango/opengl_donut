@@ -13,7 +13,7 @@ AppData app = {
         .running = true,
     },
     .config = {
-        .window_title = "Operation Null Mind" ,
+        .window_title = "Open Girl's Love Donut" ,
         .window_width = 480 * 2 ,
         .window_height = 288 * 2 ,
         .window_fullscreen = false ,
