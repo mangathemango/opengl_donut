@@ -1,6 +1,8 @@
 #include <gl.h>
 #include <string>
 #include <filesystem>
+#include <mat4.h>
+#include <vec3.h>
 
 class ShaderProgram {
     GLuint m_id = 0;
@@ -18,4 +20,19 @@ class ShaderProgram {
 
     void bind() const;
     GLuint id() const;
+
+    void setMat4(
+        std::string_view name,
+        const Mat4& value
+    );
+
+    void setVec3(
+        std::string_view name,
+        const Vec3& value
+    );
+
+    void setFloat(
+        std::string_view name,
+        float value
+    );
 };

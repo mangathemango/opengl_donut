@@ -3,21 +3,19 @@
 
 static GLuint compileShader(
     GLenum type,
-    const std::string& source
-)
+    const std::string &source)
 {
     GLuint shader =
         glCreateShader(type);
 
-    const char* src =
+    const char *src =
         source.c_str();
 
     glShaderSource(
         shader,
         1,
         &src,
-        nullptr
-    );
+        nullptr);
 
     glCompileShader(shader);
 
@@ -26,8 +24,7 @@ static GLuint compileShader(
     glGetShaderiv(
         shader,
         GL_COMPILE_STATUS,
-        &success
-    );
+        &success);
 
     if (!success)
     {
@@ -37,23 +34,20 @@ static GLuint compileShader(
             shader,
             sizeof(infoLog),
             nullptr,
-            infoLog
-        );
+            infoLog);
 
         glDeleteShader(shader);
 
         throw std::runtime_error(
-            infoLog
-        );
+            infoLog);
     }
 
     return shader;
 }
 
 ShaderProgram::ShaderProgram(
-    const std::filesystem::path& vertexPath,
-    const std::filesystem::path& fragmentPath
-)
+    const std::filesystem::path &vertexPath,
+    const std::filesystem::path &fragmentPath)
 {
     std::string vertexSource =
         readFile(vertexPath);
@@ -64,26 +58,22 @@ ShaderProgram::ShaderProgram(
     GLuint vertexShader =
         compileShader(
             GL_VERTEX_SHADER,
-            vertexSource
-        );
+            vertexSource);
 
     GLuint fragmentShader =
         compileShader(
             GL_FRAGMENT_SHADER,
-            fragmentSource
-        );
+            fragmentSource);
 
     m_id = glCreateProgram();
 
     glAttachShader(
         m_id,
-        vertexShader
-    );
+        vertexShader);
 
     glAttachShader(
         m_id,
-        fragmentShader
-    );
+        fragmentShader);
 
     glLinkProgram(m_id);
 
@@ -92,8 +82,7 @@ ShaderProgram::ShaderProgram(
     glGetProgramiv(
         m_id,
         GL_LINK_STATUS,
-        &success
-    );
+        &success);
 
     if (!success)
     {
@@ -103,8 +92,7 @@ ShaderProgram::ShaderProgram(
             m_id,
             sizeof(infoLog),
             nullptr,
-            infoLog
-        );
+            infoLog);
 
         glDeleteProgram(m_id);
 
@@ -112,8 +100,7 @@ ShaderProgram::ShaderProgram(
         glDeleteShader(fragmentShader);
 
         throw std::runtime_error(
-            infoLog
-        );
+            infoLog);
     }
 
     glDeleteShader(vertexShader);
@@ -129,17 +116,15 @@ ShaderProgram::~ShaderProgram()
 }
 
 ShaderProgram::ShaderProgram(
-    ShaderProgram&& other
-) noexcept
+    ShaderProgram &&other) noexcept
 {
     m_id = other.m_id;
     other.m_id = 0;
 }
 
-ShaderProgram&
+ShaderProgram &
 ShaderProgram::operator=(
-    ShaderProgram&& other
-) noexcept
+    ShaderProgram &&other) noexcept
 {
     if (this == &other)
     {
@@ -162,6 +147,61 @@ void ShaderProgram::bind() const
     glUseProgram(m_id);
 }
 
-GLuint ShaderProgram::id() const {
+GLuint ShaderProgram::id() const
+{
     return m_id;
+}
+
+void ShaderProgram::setMat4(
+    std::string_view name,
+    const Mat4& value
+)
+{
+    GLint location =
+        glGetUniformLocation(
+            m_id,
+            name.data()
+        );
+
+    glUniformMatrix4fv(
+        location,
+        1,
+        GL_TRUE,
+        *value.m
+    );
+}
+
+void ShaderProgram::setVec3(
+    std::string_view name,
+    const Vec3& value
+)
+{
+    GLint location =
+        glGetUniformLocation(
+            m_id,
+            name.data()
+        );
+
+    glUniform3f(
+        location,
+        value.x,
+        value.y,
+        value.z
+    );
+}
+void ShaderProgram::setFloat(
+    std::string_view name,
+    float value
+)
+{
+    GLint location =
+        glGetUniformLocation(
+            m_id,
+            name.data()
+        );
+
+    glUniform1f(
+        location,
+        value
+    );
 }
