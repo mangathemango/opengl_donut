@@ -14,3 +14,16 @@ void Renderer::uploadMesh(Mesh *mesh) {
         meshCache.try_emplace(mesh, std::move(GpuMesh(*mesh)));
     }
 }
+
+GpuMesh& Renderer::getGpuMesh(Mesh* mesh)
+{
+    auto it = meshCache.find(mesh);
+
+    if (it != meshCache.end())
+        return it->second;
+    auto [newIt, _] = meshCache.emplace(mesh, GpuMesh());
+
+    newIt->second.upload(*mesh);
+
+    return newIt->second;
+}

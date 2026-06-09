@@ -7,6 +7,7 @@ struct Renderer {
     ShaderProgram shaderProgram;
 
     void uploadMesh(Mesh *mesh);
+    GpuMesh& getGpuMesh(Mesh* mesh);
     Renderer();
     ~Renderer();
 };  

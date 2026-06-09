@@ -45,7 +45,8 @@ static GLuint compileShader(
     return shader;
 }
 
-ShaderProgram::ShaderProgram() {
+ShaderProgram::ShaderProgram()
+{
     this->m_id = 0;
 }
 
@@ -101,7 +102,8 @@ ShaderProgram::ShaderProgram(
 
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
-        std::cerr << "SHADER COMPILE FAILED:\n" << infoLog << std::endl;
+        std::cerr << "SHADER COMPILE FAILED:\n"
+                  << infoLog << std::endl;
         throw std::runtime_error(
             infoLog);
     }
@@ -156,54 +158,46 @@ GLuint ShaderProgram::id() const
 
 void ShaderProgram::setMat4(
     std::string_view name,
-    const Mat4& value
-)
+    const Mat4 &value)
 {
     GLint location =
         glGetUniformLocation(
             m_id,
-            name.data()
-        );
+            name.data());
 
     glUniformMatrix4fv(
         location,
         1,
         GL_TRUE,
-        *value.m
-    );
+        *value.m);
 }
 
 void ShaderProgram::setVec3(
     std::string_view name,
-    const Vec3& value
-)
+    const Vec3 &value)
 {
     GLint location =
         glGetUniformLocation(
             m_id,
-            name.data()
-        );
+            name.data());
 
     glUniform3f(
         location,
         value.x,
         value.y,
-        value.z
-    );
+        value.z);
 }
 void ShaderProgram::setFloat(
     std::string_view name,
-    float value
-)
+    float value)
 {
     GLint location =
         glGetUniformLocation(
             m_id,
-            name.data()
-        );
+            name.data());
 
     glUniform1f(
         location,
-        value
-    );
+        value);
 }
+

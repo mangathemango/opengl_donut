@@ -17,7 +17,7 @@
 int App_Start()
 {
     RandomInit();
-
+    std::cout << "Initializing glfw" << std::endl;
     if (!glfwInit())
     {
         std::cerr << "Failed to initialize GLFW\n";
@@ -53,6 +53,7 @@ int App_Start()
 
     glfwSwapInterval(1); // vsync
 
+    std::cout << "Initializing glad" << std::endl;
     glViewport(
         0,
         0,
@@ -60,8 +61,11 @@ int App_Start()
         app.config.screen_height);
 
     glEnable(GL_DEPTH_TEST);
-
+    
+    std::cout << "Creating Renderer" << std::endl;
     app.resources.renderer = new Renderer();
+
+    std::cout << "Setting up Scene" << std::endl;
     GameObj *cameraObj = new GameObj();
     Camera *camera = cameraObj->addComponent<Camera>();
     camera->fov = 90;
@@ -69,11 +73,12 @@ int App_Start()
     camera->tf->rotateDegrees(Vec3::up(), 30);
     app.state.scene.mainCamera = camera;
 
-    std::shared_ptr<Mesh> cube_mesh = std::make_shared<Mesh>(Mesh::Cube(2.0f));
+    Mesh* cube_mesh = new Mesh();
+    *cube_mesh = Mesh::Cube(2.0f);
 
     GameObj *cube = new GameObj();
     MeshRenderer *mr = cube->addComponent<MeshRenderer>();
-    mr->mesh = cube_mesh.get();
+    mr->mesh = cube_mesh;
     cube->getComponent<Transform>()->position = Vec3(0, -3, 20);
 
     return 0;
