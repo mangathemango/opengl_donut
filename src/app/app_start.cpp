@@ -73,8 +73,7 @@ int App_Start()
     camera->tf->rotateDegrees(Vec3::up(), 30);
     app.state.scene.mainCamera = camera;
 
-    Mesh* cube_mesh = new Mesh();
-    *cube_mesh = Mesh::Cube(2.0f);
+    auto cube_mesh = std::make_shared<Mesh>(Mesh::Cube(2.0f));
 
     GameObj *cube = new GameObj();
     MeshRenderer *mr = cube->addComponent<MeshRenderer>();

@@ -26,7 +26,7 @@ int App_Render()
         MeshRenderer* mr = obj->getComponent<MeshRenderer>();
         if (mr == nullptr) continue;
         if (flag) std::cout << "Uploading mesh" << std::endl;
-        GpuMesh& gpuMesh = app.resources.renderer->getGpuMesh(mr->mesh);
+        GpuMesh& gpuMesh = app.resources.renderer->getGpuMesh(mr->mesh.get());
     }
 
     glfwSwapBuffers(app.resources.window);
