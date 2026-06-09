@@ -68,7 +68,7 @@ int App_Start()
     std::cout << "Setting up Scene" << std::endl;
     GameObj *cameraObj = new GameObj();
     Camera *camera = cameraObj->addComponent<Camera>();
-    camera->fov = 90;
+    camera->aspect = (float) app.config.screen_width / (float) app.config.screen_height;
     camera->tf = cameraObj->getComponent<Transform>();
     camera->tf->rotateDegrees(Vec3::up(), 30);
     app.state.scene.mainCamera = camera;

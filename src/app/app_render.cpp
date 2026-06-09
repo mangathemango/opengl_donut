@@ -22,11 +22,33 @@ int App_Render()
     
     if (flag) std::cout << "Binding shader program" << std::endl;
     app.resources.renderer->shaderProgram.bind();
+
+    app.resources.renderer->shaderProgram.setMat4(
+        "view", app.state.scene.mainCamera->viewMatrix()
+    );
+
+    app.resources.renderer->shaderProgram.setMat4(
+        "projection", app.state.scene.mainCamera->projectionMatrix()
+    );
+
     for (GameObj* obj : app.state.scene.objs) {
         MeshRenderer* mr = obj->getComponent<MeshRenderer>();
         if (mr == nullptr) continue;
         if (flag) std::cout << "Uploading mesh" << std::endl;
+        Transform* tf = obj->getComponent<Transform>();
+        app.resources.renderer->shaderProgram.setMat4(
+            "model", tf->modelMatrix()
+        );
+
         GpuMesh& gpuMesh = app.resources.renderer->getGpuMesh(mr->mesh.get());
+        gpuMesh.bind();
+
+        glDrawElements(
+            GL_TRIANGLES,
+            gpuMesh.indexCount,
+            GL_UNSIGNED_INT,
+            nullptr
+        );
     }
 
     glfwSwapBuffers(app.resources.window);

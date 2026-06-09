@@ -2,6 +2,7 @@
 #include <component.h>
 #include <vec3.h>
 #include <quat.h>
+#include <mat4.h>
 
 struct Transform: public Component {
     Vec3 position;
@@ -22,6 +23,7 @@ struct Transform: public Component {
     Vec3 up() const;
     Vec3 right() const;
 
+    Mat4 modelMatrix() const;
     void display(std::ostream& os) const;
 };
 

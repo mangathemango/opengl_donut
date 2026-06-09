@@ -22,4 +22,5 @@ public:
     GpuMesh& operator=(GpuMesh&&) noexcept;
 
     void upload(const Mesh& mesh);
+    void bind();
 };

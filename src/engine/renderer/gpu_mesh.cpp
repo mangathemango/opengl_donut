@@ -5,7 +5,7 @@ GpuMesh::GpuMesh(const Mesh& mesh) {
 }
 
 void GpuMesh::upload(const Mesh& mesh)
-{
+{   
     std::cout << "I sure hope this doesnt fail" << std::endl;
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
@@ -33,6 +33,8 @@ void GpuMesh::upload(const Mesh& mesh)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vec3), nullptr);
     std::cout << "enabling" << std::endl;
     glEnableVertexAttribArray(0);
+
+    indexCount = mesh.indices.size();
     std::cout << "done" << std::endl;
 }
 
@@ -51,3 +53,6 @@ GpuMesh& GpuMesh::operator=(GpuMesh&& other) noexcept {
     return *this;
 }
 
+void GpuMesh::bind() {
+    glBindVertexArray(vao);
+}

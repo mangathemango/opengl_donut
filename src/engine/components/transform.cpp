@@ -1,5 +1,7 @@
 #include <transform.h>
+#include <cmath>
 #include <format>
+
 Transform::Transform() {
     this->position = Vec3(0,0,0);
     this->rotation = Quat::identity();
@@ -62,4 +64,9 @@ void Transform::display(std::ostream& os) const {
     os << "\tPosition: " << position << "\n";
     os << "\tRotation: " << rotation << "\n";
     os << "\tScale: "    << scale << "\n";
+}
+
+Mat4 Transform::modelMatrix() const
+{
+    return Mat4::TRS(position, rotation, scale);
 }
