@@ -60,6 +60,8 @@ int App_Start()
         app.config.screen_height);
 
     glEnable(GL_DEPTH_TEST);
+
+    app.resources.renderer = new Renderer();
     GameObj *cameraObj = new GameObj();
     Camera *camera = cameraObj->addComponent<Camera>();
     camera->fov = 90;

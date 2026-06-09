@@ -4,10 +4,12 @@
 #include <mat4.h>
 #include <vec3.h>
 
+#define SHADER_ASSET_PATH "assets/shaders/"
 class ShaderProgram {
     GLuint m_id = 0;
 
     public:
+    ShaderProgram();
     ShaderProgram(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath);
 
     ~ShaderProgram();

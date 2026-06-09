@@ -12,13 +12,14 @@ public:
     size_t indexCount = 0;
 
     GpuMesh() = default;
+    GpuMesh(const Mesh& mesh);
     // ~GpuMesh();
 
     GpuMesh(const GpuMesh&) = delete;
     GpuMesh& operator=(const GpuMesh&) = delete;
 
-    // GpuMesh(GpuMesh&&) noexcept;
-    // GpuMesh& operator=(GpuMesh&&) noexcept;
+    GpuMesh(GpuMesh&&) noexcept;
+    GpuMesh& operator=(GpuMesh&&) noexcept;
 
     void upload(const Mesh& mesh);
 };

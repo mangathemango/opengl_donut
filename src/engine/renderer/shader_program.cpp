@@ -45,16 +45,22 @@ static GLuint compileShader(
     return shader;
 }
 
+ShaderProgram::ShaderProgram() {
+    this->m_id = 0;
+}
+
 ShaderProgram::ShaderProgram(
     const std::filesystem::path &vertexPath,
     const std::filesystem::path &fragmentPath)
 {
+    std::filesystem::path base = SHADER_ASSET_PATH;
+    std::cout << "Hell ye" << std::endl;
     std::string vertexSource =
-        readFile(vertexPath);
+        readFile(base / vertexPath);
 
     std::string fragmentSource =
-        readFile(fragmentPath);
-
+        readFile(base / fragmentPath);
+    std::cout << vertexSource << std::endl;
     GLuint vertexShader =
         compileShader(
             GL_VERTEX_SHADER,
@@ -64,7 +70,7 @@ ShaderProgram::ShaderProgram(
         compileShader(
             GL_FRAGMENT_SHADER,
             fragmentSource);
-
+    std::cout << "Hell naw" << std::endl;
     m_id = glCreateProgram();
 
     glAttachShader(
@@ -98,11 +104,10 @@ ShaderProgram::ShaderProgram(
 
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
-
+        std::cerr << "SHADER COMPILE FAILED:\n" << infoLog << std::endl;
         throw std::runtime_error(
             infoLog);
     }
-
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }

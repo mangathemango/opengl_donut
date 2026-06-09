@@ -1,6 +1,6 @@
 #include <string_utils.h>
 
-static std::string readFile(
+std::string readFile(
     const std::filesystem::path& path
 )
 {

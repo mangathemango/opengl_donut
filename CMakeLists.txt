@@ -18,6 +18,15 @@ add_executable(opengl-donut
     ${SOURCES}
 )
 
+set(ASSETS_SOURCE_DIR "${CMAKE_SOURCE_DIR}/assets")
+set(ASSETS_OUTPUT_DIR "${CMAKE_BINARY_DIR}/assets")
+
+add_custom_command(TARGET opengl-donut POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${ASSETS_SOURCE_DIR}
+    ${ASSETS_OUTPUT_DIR}
+)
+
 include_directories(${CMAKE_SOURCE_DIR}/include)
 file(GLOB_RECURSE INCLUDE_DIRS LIST_DIRECTORIES true "${CMAKE_SOURCE_DIR}/include/*")
 foreach(DIR ${INCLUDE_DIRS})

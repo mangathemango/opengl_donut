@@ -1,18 +1,7 @@
-#include <glfw3.h>
 #include <app.h>
+#include <glfw3.h>
 #include <input.h>
-
-/**
- * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
- *
- * This function is called inside App_Render().
- *
- * @return int Status code (0 for success)
- */
-int App_RenderMain()
-{
-    return 0;
-}
+#include <mesh_renderer.h>
 
 /**
  * @brief [Render] Renders the current frame of the game.
@@ -28,7 +17,12 @@ int App_Render()
     glClear(GL_COLOR_BUFFER_BIT |
             GL_DEPTH_BUFFER_BIT);
 
-    App_RenderMain();
+    app.resources.renderer->shaderProgram.bind();
+    for (GameObj* obj : app.state.scene.objs) {
+        MeshRenderer* mr = obj->getComponent<MeshRenderer>();
+        if (mr == nullptr) continue;
+        app.resources.renderer->uploadMesh(mr->mesh);
+    }
 
     glfwSwapBuffers(app.resources.window);
     return 0;

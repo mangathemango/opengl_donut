@@ -2,5 +2,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <filesystem>
+#include <string>
 
-static std::string readFile(const std::filesystem::path& path);
+std::string readFile(const std::filesystem::path &path);

@@ -10,6 +10,7 @@
 
 #include <stdbool.h>
 #include <scene.h>
+#include <renderer.h>
 #include <GLFW/glfw3.h>
 
 typedef bool flag;
@@ -20,6 +21,7 @@ typedef bool flag;
 typedef struct AppResources
 {
     GLFWwindow* window;
+    Renderer* renderer;
 } AppResources;
 
 /**
