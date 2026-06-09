@@ -6,6 +6,7 @@
 #include <mesh_renderer.h>
 #include <mesh.h>
 #include <component.h>
+#include <memory>
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -66,9 +67,11 @@ int App_Start()
     camera->tf->rotateDegrees(Vec3::up(), 30);
     app.state.scene.mainCamera = camera;
 
+    std::shared_ptr<Mesh> cube_mesh = std::make_shared<Mesh>(Mesh::Cube(2.0f));
+
     GameObj *cube = new GameObj();
     MeshRenderer *mr = cube->addComponent<MeshRenderer>();
-    mr->mesh = Mesh::Cube(2.0f);
+    mr->mesh = cube_mesh.get();
     cube->getComponent<Transform>()->position = Vec3(0, -3, 20);
 
     return 0;

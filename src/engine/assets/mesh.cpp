@@ -1,9 +1,9 @@
 #include <mesh.h>
 
-Mesh* Mesh::Cube(float length)
+Mesh Mesh::Cube(float length)
 {
-    Mesh* m = new Mesh();
-    m->vertices = {
+    Mesh m;
+    m.vertices = {
         Vec3(length, length, length),
         Vec3(-length, length, length),
         Vec3(-length, -length, length),
@@ -14,7 +14,7 @@ Mesh* Mesh::Cube(float length)
         Vec3(-length, -length, -length),
         Vec3(length, -length, -length),
     };
-    m->indices = {
+    m.indices = {
         0, 1, 2,
         2, 3, 0,
         4, 5, 7,
@@ -27,7 +27,7 @@ Mesh* Mesh::Cube(float length)
         6, 2, 3,
         0, 1, 5,
         5, 4, 0};
-    m->normals = {
+    m.normals = {
         Vec3(length, length, length),
         Vec3(-length, length, length),
         Vec3(-length, -length, length),
