@@ -54,13 +54,11 @@ ShaderProgram::ShaderProgram(
     const std::filesystem::path &fragmentPath)
 {
     std::filesystem::path base = SHADER_ASSET_PATH;
-    std::cout << "Hell ye" << std::endl;
     std::string vertexSource =
         readFile(base / vertexPath);
 
     std::string fragmentSource =
         readFile(base / fragmentPath);
-    std::cout << vertexSource << std::endl;
     GLuint vertexShader =
         compileShader(
             GL_VERTEX_SHADER,
@@ -70,7 +68,6 @@ ShaderProgram::ShaderProgram(
         compileShader(
             GL_FRAGMENT_SHADER,
             fragmentSource);
-    std::cout << "Hell naw" << std::endl;
     m_id = glCreateProgram();
 
     glAttachShader(
